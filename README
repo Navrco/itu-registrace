@@ -1,0 +1,10 @@
+
+## Jak nastavit přístup k repozitáři
+`cd ~/.ssh`
+
+`ssh-keygen -o -t rsa -C "email@example.com"`
+
+`cat id_rsa.pub`
+
+
+Profilový obrázek -> Settings -> SSH and GPG keys -> New SSH key
