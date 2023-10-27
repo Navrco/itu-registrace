@@ -13,7 +13,9 @@ Profilový obrázek -> Settings -> SSH and GPG keys -> New SSH key
 `cd frontend; npm i; cd ..; cd backend; npm i`
 
 spuštění backend api: `node main.js` (autorefresh: `npx nodemon main.js`)
+
 spuštění frontend: `npm run dev`
 
 http://eva.fit.vutbr.cz:21213/
+
 http://eva.fit.vutbr.cz:21212/

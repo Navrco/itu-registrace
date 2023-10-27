@@ -2,9 +2,11 @@ const axios = require('axios');
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const port = 21213;
 
+app.use(cors({origin: '*'}));
 
 app.get('/api/getsemesters', async (req, res) => {
   
@@ -85,7 +87,7 @@ async function fetchSubjectData(id){
 	const table = dom.window.document.getElementsByTagName('table')[0];
 
 
-	let terms = [];
+	let terms = {};
 
 	for (let term = 1; term < table.rows.length - 1; term++){
 		//console.log(table.rows.item(term).innerHTML);
@@ -114,7 +116,11 @@ async function fetchSubjectData(id){
 		const cap = row.childNodes[9].innerHTML;
 		const name = row.childNodes[12].innerHTML;
 
-		terms.push({
+		if(!(type in terms)){
+			terms[type] = [];
+		}
+
+		terms[type].push({
 			"type": type,
 			"day": day,
 			"rooms": rooms,
@@ -134,8 +140,8 @@ async function fetchSubjectData(id){
 
 	}
 
-	return dataset;
 
+	return dataset;
 }
 
 app.get('/api/getsubjectdata', async (req, res) => {

@@ -1,9 +1,9 @@
 <script>
-	export let selected;
+	export let menuSwitch;
 </script>
 
-<button on:click={() => selected = true}>Registrace vyučování</button>
-<button on:click={() => selected = false}>Rozvrh</button>
+<button on:click={() => menuSwitch = true}>Registrace vyučování</button>
+<button on:click={() => menuSwitch = false}>Rozvrh</button>
 
 <style>
 
