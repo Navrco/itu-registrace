@@ -1,19 +1,33 @@
 #Webová aplikace na poznámky
-Created with react without any build tool and REST flask API with SQLAlchemy
 
-Vytvořeno knihovnou react bez jakéhokoli build nástroje.
+Vytvořeno knihovnou React bez jakéhokoli build nástroje.
 Použito Python Flask API, databázové modely pomocí SQLAlchemy.
 
+Doporučuju využít vitrualního prosředí pythonu
 
-Instalace knihoven:
+`pip install virtualenv`
+`python -m venv`
 
-pip install -U Flask-SQLAlchemy
-pip install Flask
+Instalace knihoven do virtualního prostředí
+
+`source venv/bin/activate`
+`pip install -r requirements.txt`
+
+Pro překlad react komponentu na minimalozivany javascrtipt
+
+`npm install`
 
 Spuštění:
 
-  Windows:
-    python run.py
+`source venv/bin/activate`
+`python3 run.py`
 
-  Linux:
-    python3 run.py
+
+### Jak nastavit přístup k repozitáři na vašem linuxovem stroji
+`cd ~/.ssh`
+
+`ssh-keygen -o -t rsa -C "email@example.com"`
+
+`cat id_rsa.pub`
+
+Profilový obrázek -> Settings -> SSH and GPG keys -> New SSH key
