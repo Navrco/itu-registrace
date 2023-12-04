@@ -94,21 +94,22 @@ class Calendar extends React.Component {
           current={this.state.month}
           changeMonthFunc={this.changeMonth}
           today={now.getMonth()} />
-        {this.state.loaded ? <DaySelect year={this.state.year}
-                                month={this.state.month}
-                                day={this.state.day}
-                                now={this.state.dayNow}
-                                changeDayFunc={this.changeDay}
-                                reminders={this.state.reminders}/>
-                           : <div className="loading"></div>
+        {this.state.loaded ? <DaySelect
+          year={this.state.year}
+          month={this.state.month}
+          day={this.state.day}
+          now={this.state.dayNow}
+          changeDayFunc={this.changeDay}
+          reminders={this.state.reminders}/>
+          : <div className="loading"></div>
         }
         {this.state.loaded ? <Reminder year={this.state.year}
-                                month={this.state.month}
-                                day={this.state.day}
-                                dayName={this.state.dayName}
-                                reminders={this.state.reminders}
-                                remindersFun={this.setReminders}/>
-                           : <div className="loading"></div>
+          month={this.state.month}
+          day={this.state.day}
+          dayName={this.state.dayName}
+          reminders={this.state.reminders}
+          remindersFun={this.setReminders}/>
+          : <div className="loading"></div>
         }
       </div>
     )

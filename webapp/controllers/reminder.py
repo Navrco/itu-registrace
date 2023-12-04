@@ -3,8 +3,10 @@ from webapp.models import Reminder
 from webapp.controllers.user import validUser
 from webapp import db
 
+
 def validInt(val,maxVal,minVal):
     return (not(val is None)and isinstance(val,int) and val <= maxVal and val >= minVal)
+
 
 def tryGetInt(x):
     if(x == '0'):
@@ -15,6 +17,7 @@ def tryGetInt(x):
         return int(x)
     except ValueError:
         return False
+
 
 def create(req):
     user = validUser(req.cookies)
@@ -89,6 +92,29 @@ def get(req):
 
     return jsonify(data), 200
 
+
+def update(req):
+    user = validUser(req.cookies)
+    if(not(user)):
+        return '', 401
+
+    data = req.get_json()
+    stms = (data and 'id' in data and type(data['id']) == int and 'text' in data)
+    if(not(stms)):
+        return '', 400
+
+    reminder = db.session.query(Reminder).filter(
+        Reminder.id.like(data['id']),
+        Reminder.userId.like(user.id)
+    ).first()
+    db.session.commit()
+
+    if(not(reminder)):
+        return '', 404
+
+    reminder.text = data['text']
+    db.session.commit()
+    return '', 200
 
 def delete(req):
     user = validUser(req.cookies)

@@ -35,6 +35,35 @@ class Reminder extends React.Component {
     }
   }
 
+  updateRem = (rem) => {
+    console.log(rem);
+    console.log(this.props.reminders);
+
+
+    axios({
+        method: 'put',
+        url: '/api/reminder/update',
+        data: {
+          id: rem.id,
+          text: rem.text,
+        }
+      }).then((res) => {
+
+        this.props.reminders[rem.day].forEach(item => {
+          if(item.id = rem.id){
+            item.text = rem.text
+          }
+        })
+        this.props.remindersFun(this.props.reminders)
+
+      }).catch((res) => handleAxiosError(res));
+
+
+
+
+    console.log(this.props.reminders);
+  }
+
   removeRem = (e,rem) => {
 
     if(!e.target.disabled){
@@ -87,13 +116,25 @@ class Reminder extends React.Component {
     } else if(day == ''){
       for(let r in reminders){
         reminders[r].forEach((item) => {
-          body.push(<ReminderLine key={item.id} reminder={item} showDays={true} removeFunc={this.removeRem}/>)
+          body.push(<ReminderLine
+            key={item.id}
+            reminder={item}
+            showDays={true}
+            editFunc={this.updateRem}
+            removeFunc={this.removeRem}
+          />)
         });
       }
     } else {
       if(reminders[day]){
         reminders[day].forEach((item) => {
-          body.push(<ReminderLine key={item.id} reminder={item} showDays={false} removeFunc={this.removeRem}/>)
+          body.push(<ReminderLine
+            key={item.id}
+            reminder={item}
+            showDays={false}
+            editFunc={this.updateRem}
+            removeFunc={this.removeRem}
+          />)
         });
       } else {
         body.push(<tr key="empty" className="rem-empty"><td>Zatím nemáte vytvořené události</td></tr>)

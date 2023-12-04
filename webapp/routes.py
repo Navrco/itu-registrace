@@ -26,9 +26,14 @@ def reminderCreate():
 def reminderGet():
     return reminder.get(request)
 
+@app.route('/api/reminder/update', methods=['PUT'])
+def reminderUpdate():
+    return reminder.update(request)
+
 @app.route('/api/reminder/delete', methods=['DELETE'])
 def reminderDelete():
     return reminder.delete(request)
+
 
 #Notes handling
 @app.route('/api/note/create', methods=['POST'])

@@ -18,6 +18,7 @@ class App extends React.Component {
 
   changeLocation = (location) => {
     this.setState({ location });
+    window.localStorage.setItem("location",location)
   }
 
   componentDidMount() {
@@ -37,6 +38,13 @@ class App extends React.Component {
       this.setState({ loaded: true });
 
     }).catch((res) => handleAxiosError(res));
+
+    let stored = window.localStorage.getItem("location")
+    if(stored){
+      this.setState({location:stored})
+    }
+
+
   }
 
   render() {
