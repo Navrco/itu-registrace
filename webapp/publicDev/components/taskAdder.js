@@ -1,9 +1,19 @@
+/* Project: Poznamky
+ * File: taskAdder.js
+ * Brief: Component for adding tasks
+ *
+ * Authors:
+ * Rostislav Navratil (xnavra72)
+*/
+
 class TaskAdder extends React.Component {
   state = {
     value: '',
   }
 
+  // Api call for task creation
   handleAdding = (e) => {
+    // Disables button for creation until request is resolved
     if(!e.target.disabled){
       e.preventDefault()
       e.target.disabled = true;
@@ -13,6 +23,7 @@ class TaskAdder extends React.Component {
         url: '/api/task/create',
         data: payload
       }).then((res) => {
+        // Reactively adds new task to the list
         payload.id = res.data.id;
         payload.done = false;
         let newArray = [payload, ...this.props.tasks]

@@ -1,6 +1,15 @@
+#Project: Poznamky
+#File: models.py
+#Brief: Models definiton and database creation
+#
+#Authors:
+#Rostislav Navratil (xnavra72)
+#David Nevrlka (xnevrl00)
+#Jakub Vales (xvales04)
+
 from webapp import app,db
 
-
+#Needed for mapping other models data to exact user
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)

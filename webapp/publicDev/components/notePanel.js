@@ -1,3 +1,11 @@
+/* Project: Poznamky
+ * File: notePanel.js
+ * Brief: Component that shows thumbnail of note
+ *
+ * Authors:
+ * Jakub Vales (xvales04)
+*/
+
 class NotePanel extends React.Component {
 
   render() {

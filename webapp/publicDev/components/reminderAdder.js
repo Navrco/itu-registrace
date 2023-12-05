@@ -1,3 +1,11 @@
+/* Project: Poznamky
+ * File: rimnderAdder.js
+ * Brief: Component that allows reminder adding
+ *
+ * Authors:
+ * David Nevrlka (xnevrl00)
+*/
+
 class ReminderAdder extends React.Component {
   state = {
     entireDay: false,
@@ -8,6 +16,7 @@ class ReminderAdder extends React.Component {
 
   entireDaySet = (e) => this.setState({entireDay: e.target.checked})
 
+  // Handling number input for time
   validInput = (e) => {
     if(e.target.value == '') return true;
     let expr = /^[0-9]$|^[0-9][0-9]$/;

@@ -1,3 +1,13 @@
+/* Project: Poznamky
+ * File: menu.js
+ * Brief: Component that allows switching between pages
+ *
+ * Authors:
+ * Rostislav Navratil (xnavra72)
+ * David Nevrlka (xnevrl00)
+ * Jakub Vales (xvales04)
+*/
+
 class Menu extends React.Component {
   state = {
     visible: false
@@ -18,6 +28,7 @@ class Menu extends React.Component {
     for(let i=0;i<locs.length;i++){
       let attrs = {};
       if(selected == i)attrs.active = 'true';
+      // Builds menu buttons one by one
       body.push(
         <button key={i}
           className="menu-item"
@@ -44,6 +55,7 @@ class Menu extends React.Component {
                 {body}
               </div>
             </div>
+            // Rest of the page that hides menu when clicked
             <div className="menu-empty"
             onClick={() => this.menuOpened(false)}>
             </div>

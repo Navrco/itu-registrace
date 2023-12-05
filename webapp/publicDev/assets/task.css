@@ -1,4 +1,10 @@
-/* Tasks page */
+/* Project: Poznamky
+ * File: task.css
+ * Brief: Task page styling
+ *
+ * Authors:
+ * Rostislav Navratil (xnavra72)
+*/
 
 .top-task {
   height: 100%;
@@ -42,6 +48,7 @@
 }
 
 .tasks-toolbar {
+  position: relative;
   width: 100%;
   height: 30px;
   background-color: var(--green3);
@@ -59,6 +66,26 @@
 .tasks-history[active] {
   display: block;
 }
+
+.done-tasks-delete {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 100%;
+  float: right;
+  background-color: var(--green4);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('./delete.svg');
+  background-size: 15px;
+
+}
+
+.done-tasks-delete:hover {
+  background-color: var(--green6);
+}
+
 
 .task-input {
   display: block;
@@ -86,6 +113,7 @@
 }
 
 .task-line {
+  position: relative;
   width: calc(100% - 10px);
   height: auto;
   margin: 5px;
@@ -96,13 +124,43 @@
 
 .task-content {
   height: 100%;
-  width: calc(100% - 40px);
+  width: calc(100% - 70px);
   box-sizing: border-box;
-  display: inline-block;
   overflow-wrap: break-word;
   overflow: hidden;
+  line-height: 30px;
+  margin: 0 40px 0 30px;
+}
+
+.task-textbox {
+  margin: 0 40px 0 30px;
+  width: calc(100% - 80px);
 }
 
 .task-checkbox {
-  display: inline-block;
+  position: absolute;
+  top: 7.5px;
+  left: 5px;
+}
+
+.task-save, .task-edit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background-color: var(--green4);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('./edit.svg');
+  background-size: 15px;
+
+}
+
+.task-save {
+  background-image: url('./save.svg');
+}
+
+.task-save:hover, .task-edit:hover {
+  background-color: var(--green6);
 }

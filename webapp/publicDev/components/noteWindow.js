@@ -1,3 +1,11 @@
+/* Project: Poznamky
+ * File: noteWindow.js
+ * Brief: Component for editing notes
+ *
+ * Authors:
+ * Jakub Vales (xvales04)
+*/
+
 class NoteWindow extends React.Component {
   state = {
     title: '',
@@ -6,8 +14,8 @@ class NoteWindow extends React.Component {
     delConfirm: false
   }
 
+  // Api call create new note
   noteCreate = (payload) => {
-    //request to create new note
     axios({
       method: 'post',
       url: '/api/note/create',
@@ -20,8 +28,8 @@ class NoteWindow extends React.Component {
     }).catch((res) => handleAxiosError(res));
   }
 
+  // Api call to update note
   noteUpdate = (payload) => {
-    //request to update note
     axios({
       method: 'put',
       url: '/api/note/update',
@@ -32,14 +40,11 @@ class NoteWindow extends React.Component {
         return item;
       })
       this.props.notesFunc(newArray);
-    }).catch((res) => {
-      console.log(res);
-      //Handle request error
-    });
+    }).catch((res) => handleAxiosError(res));
   }
 
   close = () => {
-    //Preparing data for request
+    // Preparing data for request
     let { title, text } = this.state;
     if(text == ''){
       this.props.openFunc(false);
@@ -50,7 +55,7 @@ class NoteWindow extends React.Component {
       title,
       text
     }
-    //Switching creating and updating
+    // Switching creating and updating
     if(this.props.opened == 'add'){
       this.noteCreate(payload)
     } else {
@@ -61,30 +66,29 @@ class NoteWindow extends React.Component {
   }
 
   delete = () => {
+    // Switching delete and confirmation
     if(this.state.delConfirm){
 
-      //request to update note
+      // Api call to delete note
       axios({
         method: 'delete',
         url: '/api/note/delete',
         data: {id: this.state.id}
       }).then((res) => {
+        // Reactively removing note from data
         const newArray = this.props.notes.filter(item => {
           return item.id != this.state.id
         })
         this.props.notesFunc(newArray);
         this.props.openFunc(false)
-      }).catch((res) => {
-        console.log(res);
-        //Handle request error
-      });
+      }).catch((res) => handleAxiosError(res));
       return
     }
     this.setState({delConfirm:true})
   }
 
   componentDidMount() {
-    //Here retriev all notes if note window opened on index
+    // Retrieves all notes
     const index =  this.props.opened
     if(index != 'add'){
       const { id, title, text } = this.props.notes[index]

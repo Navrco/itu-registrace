@@ -1,7 +1,18 @@
-class DaySelect extends React.Component {
+/* Project: Poznamky
+ * File: daySelect.js
+ * Brief: Component for remainders page that allows selecting days
+ *
+ * Authors:
+ * David Nevrlka (xnevrl00)
+*/
 
+
+class DaySelect extends React.Component {
+  // Getting data from parent
   state = {now}
 
+  // Calculating number of empty cells
+  // needed to calendar to look good
   firstDay = (y,m) => {
     const d = new Date(y,m,1);
     let val = d.getDay() - 1
@@ -9,15 +20,23 @@ class DaySelect extends React.Component {
     return val;
   }
 
+  // Reactively changes to seleted day
   clicked = (i,skip) => {
     this.props.changeDayFunc(i + 1,skip)
   }
 
   render() {
+    // Renders as a table
     const days = ['Po','Út','St','Čt','Pá','So','Ne'];
     const { year,month,day,now,reminders } = this.props;
     let nowDate = false;
-    if(year == this.state.now.getFullYear() && month == this.state.now.getMonth())nowDate = true;
+
+    // Checks if selected year and month are current year and month
+    if(year == this.state.now.getFullYear() && month == this.state.now.getMonth()){
+      nowDate = true;
+    }
+
+    //Finding last day of selected month
     const lastDay = new Date(year,month + 1,0).getDate();
     const skip = this.firstDay(year,month);
 

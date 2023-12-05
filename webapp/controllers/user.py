@@ -1,3 +1,10 @@
+#Project: Poznamky
+#File: task.py
+#Brief: User controller
+#
+#Authors:
+#Rostislav Navratil (xnavra72)
+
 from flask import jsonify
 import uuid
 from webapp.models import User

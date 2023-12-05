@@ -1,3 +1,11 @@
+/* Project: Poznamky
+ * File: monthSelector.js
+ * Brief: Component that allows selecting months for reminders
+ *
+ * Authors:
+ * David Nevrlka (xnevrl00)
+*/
+
 class MonthSelector extends React.Component {
   render() {
 
@@ -7,6 +15,8 @@ class MonthSelector extends React.Component {
 
     for(let i=0;i<monthNames.length;i++){
       let attrs = {}
+
+      // Highlights current month
       if(i == current)attrs.active = 'true';
       if(i == today)attrs.now = 'true';
 

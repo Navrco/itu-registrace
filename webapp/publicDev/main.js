@@ -1,3 +1,14 @@
+/* Project: Poznamky
+ * File: main.js
+ * Brief: Main and first react component that is loaded
+ *
+ * Authors:
+ * Rostislav Navratil (xnavra72)
+ * David Nevrlka (xnevrl00)
+ * Jakub Vales (xvales04)
+*/
+
+// Date for reminders as global variables
 const now = new Date();
 let global = {
   year: now.getFullYear(),
@@ -16,19 +27,22 @@ class App extends React.Component {
     loaded: false
   }
 
+  // Main menu batton handler
   changeLocation = (location) => {
     this.setState({ location });
+    // Using local storage to save last used page
     window.localStorage.setItem("location",location)
   }
 
+  // Checks if browser cookie is valid user
   componentDidMount() {
     axios({
       method: 'get',
       url: '/api/user/cookie',
     }).then((res) => {
       if(res.data.exists){
-        //Přidate data uživatele na stránku
       } else {
+        // Creating cookie for new user
         let date = new Date();
         let days =  1000;
         date.setTime(+ date + (days * 86400000));
@@ -39,6 +53,7 @@ class App extends React.Component {
 
     }).catch((res) => handleAxiosError(res));
 
+    // Reads last used page
     let stored = window.localStorage.getItem("location")
     if(stored){
       this.setState({location:stored})
@@ -79,7 +94,7 @@ class App extends React.Component {
           return null;
       }
     } else {
-      //Waiting for user cookie to be set if it isnt
+      //Waiting for user info to be retrived
       return (
         <div className="loading"></div>
       )

@@ -1,23 +1,35 @@
+#Project: Poznamky
+#File: routers.py
+#Brief: Api endpoints list and function assignment
+#
+#Authors:
+#Rostislav Navratil (xnavra72)
+#David Nevrlka (xnevrl00)
+#Jakub Vales (xvales04)
+
 from flask import request, send_from_directory, redirect
 from webapp import app
 from webapp.controllers import user, reminder, note, task
 
+
+#Invalid paths and endpoints handler
 @app.errorhandler(404)
 def page_not_found(e):
     return redirect('/', code=302)
 
-#Static files serve
+
+#React app files path
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
 
-#User handling
+#User token loader
 @app.route('/api/user/cookie', methods=['GET'])
 def userCookie():
     return user.cookie(request)
 
 
-#Reminders handling
+#Reminder controller maping
 @app.route('/api/reminder/create', methods=['POST'])
 def reminderCreate():
     return reminder.create(request)
@@ -35,7 +47,8 @@ def reminderDelete():
     return reminder.delete(request)
 
 
-#Notes handling
+
+#Note controller maping
 @app.route('/api/note/create', methods=['POST'])
 def noteCreate():
     return note.create(request)
@@ -53,7 +66,7 @@ def noteDelete():
     return note.delete(request)
 
 
-#Tasks handling
+#Task controller maping
 @app.route('/api/task/create', methods=['POST'])
 def taskCreate():
     return task.create(request)
@@ -65,3 +78,12 @@ def taskGet():
 @app.route('/api/task/finish', methods=['PUT'])
 def taskFinish():
     return task.finish(request)
+
+@app.route('/api/task/update', methods=['PUT'])
+def taskUpdate():
+    return task.update(request)
+
+@app.route('/api/task/delete', methods=['DELETE'])
+def taskDelete():
+    return task.delete(request)
+

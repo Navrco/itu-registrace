@@ -1,4 +1,10 @@
-/* Note page */
+/* Project: Poznamky
+ * File: note.css
+ * Brief: Note page styling
+ *
+ * Authors:
+ * Jakub Vales (xvales04)
+*/
 
 .search-wrapper {
   margin: 4px auto 0 auto;
@@ -131,6 +137,10 @@
   background-position: center;
 }
 
+.note-close:hover {
+  background-color: var(--green6);
+}
+
 .note-delete {
   float: right;
   width: 40px;
@@ -142,12 +152,20 @@
   background-position: center;
 }
 
+.note-delete:hover {
+  background-color: var(--green6);
+}
+
 .note-delete-confirm {
   background-color: var(--green4);
   background-image: url('./delete-confirm.svg');
   background-size: 25px;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.note-delete-confirm:hover  {
+  background-color: var(--green6);
 }
 
 .note-title {

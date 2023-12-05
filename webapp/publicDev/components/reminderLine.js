@@ -1,9 +1,19 @@
+/* Project: Poznamky
+ * File: reminderLine.js
+ * Brief: Component representing one reminder
+ *
+ * Authors:
+ * David Nevrlka (xnevrl00)
+*/
+
 class ReminderLine extends React.Component {
   state = {
     editable: false,
     text: ''
   }
 
+
+  // Handles saving changes to edited text
   saveHandler(reminder){
     this.setState({editable:false});
 
@@ -13,10 +23,9 @@ class ReminderLine extends React.Component {
 
     this.props.reminder.text = this.state.text
     this.props.editFunc(this.props.reminder);
-
   }
 
-
+  // Double digit minutes looks better
   formatMinutes = (val) => {
     if (val.toString().length == 1){
       return '0' + val;
@@ -28,12 +37,11 @@ class ReminderLine extends React.Component {
 
     const { reminder, showDays, editFunc, removeFunc } = this.props
 
-    //this.setState({text: reminder.text})
-
 
     return (
       <tr className="rem-line">
 
+        // Showing reminders for whole month if no day is selected
         {showDays && <td className="rem-day">
           {reminder.day}.
         </td>}
@@ -42,6 +50,7 @@ class ReminderLine extends React.Component {
           {reminder.hours}:{this.formatMinutes(reminder.minutes)}
         </td>}
 
+        // If reminder is set to entire day then time is represented as -
         {reminder.entireDay && <td className="rem-time">
           <div className="rem-entire-day">-</div>
         </td>}

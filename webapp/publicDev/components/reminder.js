@@ -1,3 +1,11 @@
+/* Project: Poznamky
+ * File: reminder.js
+ * Brief: Component for showing all reminders for selected day
+ *
+ * Authors:
+ * David Nevrlka (xnevrl00)
+*/
+
 class Reminder extends React.Component {
   state = {
     add: false
@@ -10,8 +18,8 @@ class Reminder extends React.Component {
   addRem = (e,data) => {
 
     if(!e.target.disabled && data.text != ''){
-      //e.preventDefault()
       e.target.disabled = true;
+      // Api call for reminder create
       const { year, month, day } = this.props
       const { entireDay, minutes, hours, text } = data
       let payload = { year, month, day, entireDay, minutes, hours, text }
@@ -20,10 +28,11 @@ class Reminder extends React.Component {
         url: '/api/reminder/create',
         data: payload
       }).then((res) => {
-        //Writing new reminder to existing state to prevent accessing db each time
+        // Reactively adding new reminder
         payload.id = res.data.id;
         let newObject = {...this.props.reminders}
 
+        // If there already exist other reminder for selected day
         if(newObject[payload.day]){
           newObject[payload.day].push(payload)
         } else {
@@ -35,11 +44,8 @@ class Reminder extends React.Component {
     }
   }
 
+  // Api call for update
   updateRem = (rem) => {
-    console.log(rem);
-    console.log(this.props.reminders);
-
-
     axios({
         method: 'put',
         url: '/api/reminder/update',
@@ -49,6 +55,7 @@ class Reminder extends React.Component {
         }
       }).then((res) => {
 
+        // Reactively update reminder
         this.props.reminders[rem.day].forEach(item => {
           if(item.id = rem.id){
             item.text = rem.text
@@ -57,32 +64,24 @@ class Reminder extends React.Component {
         this.props.remindersFun(this.props.reminders)
 
       }).catch((res) => handleAxiosError(res));
-
-
-
-
-    console.log(this.props.reminders);
   }
 
   removeRem = (e,rem) => {
 
     if(!e.target.disabled){
-      //e.preventDefault()
-      //e.target.disabled = true;
       const { year, month } = this.props
       let payload = {
-        //year,
-        //month,
         day: rem.day,
         id: rem.id
       }
 
+      // Api call for deletion
       axios({
         method: 'delete',
         url: '/api/reminder/delete',
         data: payload
       }).then((res) => {
-        //Deleting reminder from current state to prevent axios request
+        // Reactively deleting reminder
         let newObject = {...this.props.reminders}
         if(newObject[rem.day].length == 1){
           delete newObject[rem.day];
@@ -100,20 +99,18 @@ class Reminder extends React.Component {
 
     const { year, month, day, dayName, reminders } = this.props
 
-    //console.log(reminders)
-    //console.log(reminders)
-    //console.log(day)
-
     let dateText = 'Není vybrán den';
     if(day != ''){
       dateText = `${dayName} ${day}. ${month + 1}. ${year}`;
     }
 
+    // Building reminder one by one
     let body = []
     if(Object.keys(reminders).length == 0){
       body.push(<tr key="empty" className="rem-empty"><td>Zatím nemáte vytvořené události</td></tr>)
 
     } else if(day == ''){
+      // Reminders set to entire day
       for(let r in reminders){
         reminders[r].forEach((item) => {
           body.push(<ReminderLine
@@ -126,6 +123,7 @@ class Reminder extends React.Component {
         });
       }
     } else {
+      // Reminders set to exac time
       if(reminders[day]){
         reminders[day].forEach((item) => {
           body.push(<ReminderLine

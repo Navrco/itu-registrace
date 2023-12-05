@@ -1,3 +1,12 @@
+/* Project: Poznamky
+ * File: noteSearch.js
+ * Brief: Search bar for searching in notes
+ *
+ * Authors:
+ * Jakub Vales (xvales04)
+*/
+
+
 class NoteSearch extends React.Component {
   state = {
     value: '',
@@ -26,6 +35,7 @@ class NoteSearch extends React.Component {
                 this.doSearch()
               }
             }}
+            // Do search when focus is changed to other element
             onBlur={() => this.doSearch()}/>
 
           <button className="search-go"

@@ -1,3 +1,11 @@
+/* Project: Poznamky
+ * File: note.js
+ * Brief: Note page as component
+ *
+ * Authors:
+ * Jakub Vales (xvales04)
+*/
+
 class Note extends React.Component {
   state = {
     opened: false,
@@ -5,8 +13,8 @@ class Note extends React.Component {
     loaded: false
   }
 
+  // Getting all notes associated with user
   getNotes = (search = '') => {
-    //Getting all notes associated with user
     axios({
       method: 'get',
       url: '/api/note/get',
@@ -19,19 +27,24 @@ class Note extends React.Component {
     }).catch((res) => handleAxiosError(res));
   }
 
+  // Call api read when component loaded
   componentDidMount() {
     this.getNotes()
   }
 
+  // Reacts when note window is needed to open
+  // either new note or already existing
   openChange = (opened) => {
     this.setState({opened})
   }
 
+  // Reacts to notes data change
   editNotes = (notes) => {
     this.setState({notes})
   }
 
   render() {
+    // Creates array from sub components of notes
     let body = [];
     for(let i=0;i<this.state.notes.length;i++){
       body.push(

@@ -1,3 +1,11 @@
+/* Project: Poznamky
+ * File: task.js
+ * Brief: Main component for task page
+ *
+ * Authors:
+ * Rostislav Navratil (xnavra72)
+*/
+
 class Task extends React.Component {
   state = {
     open: '',
@@ -18,11 +26,24 @@ class Task extends React.Component {
     }).catch((res) => handleAxiosError(res));
   }
 
+  // Reactivly rewrites all tasks data
   editTasks = (tasks) => {
     this.setState({ tasks })
 
   }
 
+  // Delete api call
+  handleRemove = (e) => {
+    axios({
+      method: 'delete',
+      url: '/api/task/delete',
+    }).then((res) => {
+      this.setState({tasks: this.state.tasks.filter(item => !item.done)})
+    }).catch((res) => handleAxiosError(res));
+
+  }
+
+  // Handles switching between done tasks table and task adder form
   handleOpen = (type) => {
     if(this.state.open == type){
       this.setState({open: ''})
@@ -39,6 +60,7 @@ class Task extends React.Component {
 
     let [body,bodyDone] = [[],[]];
     this.state.tasks.forEach((item, i) => {
+      // Builds done tasks list
       if(item.done){
         bodyDone.push(
           <TaskLine key={i}
@@ -47,6 +69,7 @@ class Task extends React.Component {
             tasksFunc={this.editTasks}/>
         )
       } else {
+      // Builds undone tasks list
         body.push(
           <TaskLine key={i}
             index={i}
@@ -79,7 +102,12 @@ class Task extends React.Component {
         {this.state.loaded ?
           <div>
             <div className="tasks-wrapper tasks-history" {...attrHistory}>
-              <div className="tasks-toolbar">Splněné úkoly</div>
+              <div className="tasks-toolbar">
+
+                <div className="done-tasks-title">Splněné úkoly</div>
+                <button className="done-tasks-delete" onClick={(e) => this.handleRemove(e)}></button>
+
+              </div>
               {bodyDone}
             </div>
             <div className="tasks-wrapper">

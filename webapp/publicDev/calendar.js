@@ -1,3 +1,11 @@
+/* Project: Poznamky
+ * File: calendar.js
+ * Brief: Root component for page with remainders
+ *
+ * Authors:
+ * David Nevrlka (xnevrl00)
+*/
+
 class Calendar extends React.Component {
   months = ['Leden','Únor','Březen','Duben','Květen','Červen','Červenec','Srpen','Září','Říjen','Listopad','Prosinec'];
   dayNames = ['Neděle','Pondělí','Úterý','Středa','Čtvrtek','Pátek','Sobota'] ;
@@ -8,15 +16,16 @@ class Calendar extends React.Component {
     dayNow: now.getDate(),
     day:  '',
     dayName: '',
-    animationTimer: false,
     reminders: [],
     loaded: false
   }
 
+  // Update method that is passed to child components
   setReminders = (reminders) => {
     this.setState({reminders})
   }
 
+  // Api call to read reaminders for exact year and month
   getReminders = (year,month) => {
     this.setState({loaded: false})
     axios({
@@ -34,6 +43,7 @@ class Calendar extends React.Component {
           }
         })
       }
+      // Assigns retrieved data to variable
       this.setState({
         reminders,
         loaded: true
@@ -42,6 +52,7 @@ class Calendar extends React.Component {
     }).catch((res) => handleAxiosError(res));
   }
 
+  // Reacts to changes when year selector is used
   changeYear = (num) => {
     const year = this.state.year + num
     global.year = year;
@@ -49,21 +60,10 @@ class Calendar extends React.Component {
       year,
       day: ''
     })
-    let wrapper = document.querySelector('#year-wrapper');
-    if(this.state.animationTimer){
-      wrapper.className = 'year-wrapper';
-      window.clearTimeout(this.state.animationTimer);
-    }
-    wrapper.classList.add('year-wrapper' + num);
-    let animationTimer = window.setTimeout(()=> {
-      wrapper.classList.remove('year-wrapper' + num);
-    },200);
-    this.setState({
-      animationTimer
-    })
     this.getReminders(year,this.state.month)
   }
 
+  // Reacts to month selection
   changeMonth = (month) => {
     global.month = month;
     this.setState({
@@ -73,6 +73,7 @@ class Calendar extends React.Component {
     this.getReminders(this.state.year,month)
   }
 
+  // Reacts to day change
   changeDay = (day,skip) => {
     this.setState({
       day,
@@ -80,6 +81,7 @@ class Calendar extends React.Component {
     })
   }
 
+  // Calls api read when component loads
   componentDidMount(){
     this.getReminders(this.state.year,this.state.month);
   }
