@@ -13,21 +13,17 @@ Instalace knihoven do virtualního prostředí
 `source venv/bin/activate`
 `pip install -r requirements.txt`
 
-Pro překlad react komponentu na minimalozivany javascrtipt
-
-`npm install`
-
 Spuštění:
 
 `source venv/bin/activate`
 `python3 run.py`
 
 
-### Jak nastavit přístup k repozitáři na vašem linuxovem stroji
-`cd ~/.ssh`
 
-`ssh-keygen -o -t rsa -C "email@example.com"`
+Knihovny:
+React - https://react.dev/ - MIT licence
+Babel - https://babeljs.io/ - MIT licence
+Axios - https://axios-http.com - MIT licence
 
-`cat id_rsa.pub`
-
-Profilový obrázek -> Settings -> SSH and GPG keys -> New SSH key
+Flask - https://palletsprojects.com/ - BSD licence
+Flask-SQLAlchemy - https://palletsprojects.com/ - BSD licence

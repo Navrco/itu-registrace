@@ -27,8 +27,8 @@ class Menu extends React.Component {
     let body = [];
     for(let i=0;i<locs.length;i++){
       let attrs = {};
-      if(selected == i)attrs.active = 'true';
       // Builds menu buttons one by one
+      if(selected == i)attrs.active = 'true';
       body.push(
         <button key={i}
           className="menu-item"
@@ -55,7 +55,7 @@ class Menu extends React.Component {
                 {body}
               </div>
             </div>
-            // Rest of the page that hides menu when clicked
+            {/* Rest of the page that hides menu when clicked */}
             <div className="menu-empty"
             onClick={() => this.menuOpened(false)}>
             </div>
