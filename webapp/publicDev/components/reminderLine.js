@@ -41,7 +41,7 @@ class ReminderLine extends React.Component {
     return (
       <tr className="rem-line">
 
-        // Showing reminders for whole month if no day is selected
+        {/* Showing reminders for whole month if no day is selected*/ }
         {showDays && <td className="rem-day">
           {reminder.day}.
         </td>}
@@ -50,7 +50,7 @@ class ReminderLine extends React.Component {
           {reminder.hours}:{this.formatMinutes(reminder.minutes)}
         </td>}
 
-        // If reminder is set to entire day then time is represented as -
+        {/* If reminder is set to entire day then time is represented as - */}
         {reminder.entireDay && <td className="rem-time">
           <div className="rem-entire-day">-</div>
         </td>}

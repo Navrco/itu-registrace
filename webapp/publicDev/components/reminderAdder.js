@@ -74,7 +74,7 @@ class ReminderAdder extends React.Component {
             </div>
 
             <div className="rem-sliders">
-              Hodniny
+              Hodiny
               <div className="rem-slider-cont">
                 <input type="range" min="0" max="23" className="rem-slider"
                   value={this.state.hours}
